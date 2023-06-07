@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 
@@ -9,11 +9,14 @@ import NewComment from "../../Components/NewComment/NewComment";
 import "./discussion.css";
 
 const Discussion = () => {
+  const [comment, setComment] = useState(null);
+
   useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/posts")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
+        setComment(response.data.slice(0, 4));
       })
       .catch((error) => {
         console.log(error);
@@ -23,9 +26,13 @@ const Discussion = () => {
   return (
     <main>
       <section>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comment ? (
+          comment.map((c) => (
+            <Comment key={c.ide} email={c.title} name={c.id} />
+          ))
+        ) : (
+          <p>loading ...</p>
+        )}
       </section>
       <section>
         <FullComment />
