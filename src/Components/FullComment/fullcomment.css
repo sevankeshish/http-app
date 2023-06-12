@@ -15,7 +15,10 @@
   color: #ffffff;
   border: 1px solid red;
   border-radius: 5px;
-  margin-bottom: 20px;
-  padding: 2px;
+  margin-bottom: 12px;
+  padding: 3px;
   cursor: pointer;
+  width: 60px;
+  position: relative;
+  bottom: 8px;
 }

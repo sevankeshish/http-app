@@ -27,9 +27,7 @@ const Discussion = () => {
   useEffect(() => {
     const getComment = async () => {
       try {
-        const { data } = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
+        const { data } = await axios.get("http://localhost:3001/comments");
         setComment(data.slice(0, 4));
       } catch (error) {
         console.log(error);
@@ -48,9 +46,9 @@ const Discussion = () => {
         {comment ? (
           comment.map((c) => (
             <Comment
-              key={c.ide}
-              email={c.title}
-              name={c.id}
+              key={c.id}
+              email={c.email}
+              name={c.name}
               onClick={() => selectCommentHandler(c.id)}
             />
           ))
