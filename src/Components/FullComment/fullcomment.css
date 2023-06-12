@@ -10,3 +10,12 @@
   color: #4338ca;
   margin: 20px 0;
 }
+.btn-del {
+  background-color: rgb(243, 162, 162);
+  color: #ffffff;
+  border: 1px solid red;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 2px;
+  cursor: pointer;
+}

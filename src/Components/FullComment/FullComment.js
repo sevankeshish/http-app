@@ -4,7 +4,7 @@ import "./fullcomment.css";
 
 const FullComment = ({ commentId }) => {
   const [comment, setComment] = useState(null);
-  console.log(comment);
+  // console.log(comment);
 
   useEffect(() => {
     if (commentId) {
@@ -16,7 +16,7 @@ const FullComment = ({ commentId }) => {
         .catch();
     }
   }, [commentId]);
-  console.log(comment);
+  // console.log(comment);
 
   const styles = {
     backgroundColor: " #efefef",
@@ -34,6 +34,7 @@ const FullComment = ({ commentId }) => {
         <p>name:{comment.id}</p>
         <p>email: {comment.title}</p>
         <p>{comment.body}</p>
+        <button className="btn-del">Delete</button>
       </div>
     );
 };
