@@ -28,7 +28,7 @@ const Discussion = () => {
     const getComment = async () => {
       try {
         const { data } = await axios.get("http://localhost:3001/comments");
-        setComment(data.slice(0, 4));
+        setComment(data);
       } catch (error) {
         console.log(error);
       }
@@ -38,6 +38,17 @@ const Discussion = () => {
 
   const selectCommentHandler = (id) => {
     setSelectedId(id);
+  };
+
+  const postCommentHandler = (comment) => {
+    axios
+      .post("http://localhost:3001/comments", {
+        ...comment,
+        postId: 10,
+      })
+      .then((res) => axios.get("http://localhost:3001/comments"))
+      .then((res) => setComment(res.data))
+      .catch();
   };
 
   return (
@@ -60,7 +71,7 @@ const Discussion = () => {
         <FullComment commentId={selectedId} />
       </section>
       <section>
-        <NewComment />
+        <NewComment onAddPost={postCommentHandler} />
       </section>
     </main>
   );

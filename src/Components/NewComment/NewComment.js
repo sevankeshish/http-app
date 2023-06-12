@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import "./newComment.css";
 
-const NewComment = () => {
+const NewComment = ({ onAddPost }) => {
   const [comment, setComment] = useState({
     name: "",
     email: "",
@@ -14,17 +14,17 @@ const NewComment = () => {
     setComment({ ...comment, [e.target.name]: e.target.value });
   };
 
-  const postCommentHandler = () => {
-    axios
-      .post("http://localhost:3001/comments", {
-        ...comment,
-        postId: 10,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch();
-  };
+  // const postCommentHandler = () => {
+  //   axios
+  //     .post("http://localhost:3001/comments", {
+  //       ...comment,
+  //       postId: 10,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch();
+  // };
 
   return (
     <div className="new-comment">
@@ -41,7 +41,7 @@ const NewComment = () => {
         <label>body</label>
         <input type="textarea" name="content" onChange={changeHandler} />
       </div>
-      <button onClick={postCommentHandler} className="btn">
+      <button onClick={() => onAddPost(comment)} className="btn">
         Add New Commenet
       </button>
     </div>
