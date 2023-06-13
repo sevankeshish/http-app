@@ -41,9 +41,7 @@ const NewComment = ({ onAddPost }) => {
         <label>body</label>
         <input type="textarea" name="content" onChange={changeHandler} />
       </div>
-      <button onClick={() => onAddPost(comment)} className="btn">
-        Add New Commenet
-      </button>
+      <button onClick={() => onAddPost(comment)}>Add New Commenet</button>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import axios from "axios";
 
@@ -11,6 +12,7 @@ import "./discussion.css";
 const Discussion = () => {
   const [comment, setComment] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const [error, setError] = useState(false);
 
   // useEffect(() => {
   //   axios
@@ -31,6 +33,7 @@ const Discussion = () => {
         setComment(data);
       } catch (error) {
         console.log(error);
+        setError(true);
       }
     };
     getComment();
@@ -40,35 +43,59 @@ const Discussion = () => {
     setSelectedId(id);
   };
 
-  const postCommentHandler = (comment) => {
-    axios
-      .post("http://localhost:3001/comments", {
+  const postCommentHandler = async (comment) => {
+    try {
+      await axios.post("http://localhost:3001/comments", {
         ...comment,
         postId: 10,
-      })
-      .then((res) => axios.get("http://localhost:3001/comments"))
-      .then((res) => setComment(res.data))
-      .catch();
+      });
+      const { data } = await axios.get("http://localhost:3001/comments");
+      setComment(data);
+    } catch (error) {}
+  };
+
+  // const postCommentHandler = (comment) => {
+  //   axios
+  //     .post("http://localhost:3001/comments", {
+  //       ...comment,
+  //       postId: 10,
+  //     })
+  //     .then((res) => axios.get("http://localhost:3001/comments"))
+  //     .then((res) => setComment(res.data))
+  //     .catch();
+  // };
+
+  const renderComments = () => {
+    let renderValue = <p>loading ...</p>;
+
+    // if (error) renderValue = <p>fetching data failed !</p>;
+    if (error) {
+      renderValue = <p>fetching data failed !</p>;
+      toast.error("there is an error");
+    }
+
+    if (comment && !error) {
+      renderValue = comment.map((c) => (
+        <Comment
+          key={c.id}
+          email={c.email}
+          name={c.name}
+          onClick={() => selectCommentHandler(c.id)}
+        />
+      ));
+    }
+    return renderValue;
   };
 
   return (
     <main>
+      <section>{renderComments()}</section>
       <section>
-        {comment ? (
-          comment.map((c) => (
-            <Comment
-              key={c.id}
-              email={c.email}
-              name={c.name}
-              onClick={() => selectCommentHandler(c.id)}
-            />
-          ))
-        ) : (
-          <p>loading ...</p>
-        )}
-      </section>
-      <section>
-        <FullComment commentId={selectedId} />
+        <FullComment
+          commentId={selectedId}
+          setComments={setComment}
+          setSelectedId={setSelectedId}
+        />
       </section>
       <section>
         <NewComment onAddPost={postCommentHandler} />
