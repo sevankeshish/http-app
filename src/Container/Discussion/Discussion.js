@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import axios from "axios";
+// import axios from "axios";
+import http from "../../Services/httpServices";
 
 import Comment from "../../Components/Comment/Comment";
 import FullComment from "../../Components/FullComment/FullComment";
 import NewComment from "../../Components/NewComment/NewComment";
+
+import GetAllComments from "../../Services/getAllCommentsService";
+import AddNewPost from "../../Services/addNewCommentService";
 
 import "./discussion.css";
 
@@ -15,7 +19,7 @@ const Discussion = () => {
   const [error, setError] = useState(false);
 
   // useEffect(() => {
-  //   axios
+  //   http
   //     .get("https://jsonplaceholder.typicode.com/posts")
   //     .then((response) => {
   //       // console.log(response.data);
@@ -29,7 +33,7 @@ const Discussion = () => {
   useEffect(() => {
     const getComment = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/comments");
+        const { data } = await GetAllComments();
         setComment(data);
       } catch (error) {
         console.log(error);
@@ -45,22 +49,19 @@ const Discussion = () => {
 
   const postCommentHandler = async (comment) => {
     try {
-      await axios.post("http://localhost:3001/comments", {
-        ...comment,
-        postId: 10,
-      });
-      const { data } = await axios.get("http://localhost:3001/comments");
+      await AddNewPost({ ...comment, postId: 10 });
+      const { data } = await http.get("/comments");
       setComment(data);
     } catch (error) {}
   };
 
   // const postCommentHandler = (comment) => {
-  //   axios
-  //     .post("http://localhost:3001/comments", {
+  //   http
+  //     .post("/comments", {
   //       ...comment,
   //       postId: 10,
   //     })
-  //     .then((res) => axios.get("http://localhost:3001/comments"))
+  //     .then((res) => http.get("/comments"))
   //     .then((res) => setComment(res.data))
   //     .catch();
   // };

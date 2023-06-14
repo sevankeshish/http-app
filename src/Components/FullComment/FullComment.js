@@ -1,5 +1,12 @@
-import axios from "axios";
+// import axios from "axios";
+import http from "../../Services/httpServices";
 import { useEffect, useState } from "react";
+
+import GetAllComments from "../../Services/getAllCommentsService";
+import DeleteComment from "../../Services/deleteCommentService";
+import GetOneComment from "../../Services/getOneCommentService";
+import AddNewPost from "../../Services/addNewCommentService";
+
 import "./fullcomment.css";
 
 const FullComment = ({ commentId, setComments, setSelectedId }) => {
@@ -8,8 +15,7 @@ const FullComment = ({ commentId, setComments, setSelectedId }) => {
 
   useEffect(() => {
     if (commentId) {
-      axios
-        .get(`http://localhost:3001/comments/${commentId}`)
+      GetOneComment(commentId)
         .then((res) => {
           setComment(res.data);
         })
@@ -19,16 +25,16 @@ const FullComment = ({ commentId, setComments, setSelectedId }) => {
   // console.log(comment);
 
   // const deleteHandler = () => {
-  //   axios
-  //     .delete(`http://localhost:3001/comments/${commentId}`)
+  //   http
+  //     .delete(`/comments/${commentId}`)
   //     .then((res) => console.log(res.data))
   //     .catch((error) => console.log(error));
   // };
 
   const deleteHandler = async () => {
     try {
-      await axios.delete(`http://localhost:3001/comments/${commentId}`);
-      const { data } = await axios.get("http://localhost:3001/comments");
+      await DeleteComment(commentId);
+      const { data } = await GetAllComments();
       setComments(data);
       setSelectedId(null);
       setComment(null);

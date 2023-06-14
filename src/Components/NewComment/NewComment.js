@@ -1,5 +1,7 @@
-import axios from "axios";
+// import axios from "axios";
+import http from "../../../src/Services/httpServices";
 import { useState } from "react";
+
 import "./newComment.css";
 
 const NewComment = ({ onAddPost }) => {
@@ -15,7 +17,7 @@ const NewComment = ({ onAddPost }) => {
   };
 
   // const postCommentHandler = () => {
-  //   axios
+  // http
   //     .post("http://localhost:3001/comments", {
   //       ...comment,
   //       postId: 10,
