@@ -16,6 +16,12 @@ const FullComment = ({ commentsId }) => {
     }
   }, [commentsId]);
 
+  const deleteHandler = () =>{
+    axios.delete(`https://jsonplaceholder.typicode.com/comments/${commentsId}`)
+    .then((res)=>{console.log(res)})
+    .catch((error)=>{console.log(error);})
+  }
+
   const styles = {
     backgroundColor: " #efefef",
     color: "#444",
@@ -30,7 +36,7 @@ const FullComment = ({ commentsId }) => {
         <p>{comment.name}</p>
         <p>{comment.email}</p>
         <p>{comment.body}</p>
-        <button>Delete</button>
+        <button onClick={deleteHandler}> Delete </button>
       </div>
     );
   }
