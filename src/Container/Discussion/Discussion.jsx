@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast} from 'react-toastify';
 
 import Comment from "../../Components/Comment/Comment";
 import FullComment from "../../Components/FullComment/FullComment";
@@ -10,6 +11,7 @@ import "./Discussion.css";
 const Discussion = () => {
   const [comments, setComments] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     // axios.get("https://jsonplaceholder.typicode.com/comments")
@@ -28,7 +30,9 @@ const Discussion = () => {
         );
         setComments(data);
       } catch (error) {
-        console.log(error);
+        //calling error which backend sets
+        // setError({message:error.message})
+        setError(true)
       }
     };
     getComments();
@@ -49,22 +53,31 @@ const Discussion = () => {
   //   .catch(()=>{})
   //  }
   
+  const renderComments = () =>{
+    let renderValue = <p>loading ... .</p>
+    //calling error which backend sets
+    // if(error) renderValue = <p>{error.message}</p>
+    if(error){
+      renderValue = <p>fetching data failed !</p>
+      toast.error("fetching data failed !")
+    } 
+    if(comments && !error){
+      renderValue = comments.map((c) => (
+       <Comment
+         key={c.id}
+         commentName={c.name}
+         commentEmail={c.email}
+         handleClick={() => selecIdHandler(c.id)}
+       />
+     ))
+    }
+    return renderValue
+  }
 
   return (
     <main>
       <section>
-        {comments ? (
-          comments.map((c) => (
-            <Comment
-              key={c.id}
-              commentName={c.name}
-              commentEmail={c.email}
-              handleClick={() => selecIdHandler(c.id)}
-            />
-          ))
-        ) : (
-          <p>loading ... .</p>
-        )}
+        {renderComments()}
       </section>
       <section>
         <FullComment commentsId={selectedId} />
