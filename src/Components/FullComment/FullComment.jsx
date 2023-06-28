@@ -9,7 +9,7 @@ const FullComment = ({ commentsId }) => {
   useEffect(() => {
     if (commentsId) {
       axios
-        .get(`https://jsonplaceholder.typicode.com/comments/${commentsId}`)
+        .get(`http://localhost:3001/comments/${commentsId}`)
         // .then((res) =>  console.log(res.data))
         .then((res) => setComment(res.data))
         .catch();
@@ -17,7 +17,7 @@ const FullComment = ({ commentsId }) => {
   }, [commentsId]);
 
   const deleteHandler = () =>{
-    axios.delete(`https://jsonplaceholder.typicode.com/comments/${commentsId}`)
+    axios.delete(`http://localhost:3001/comments/${commentsId}`)
     .then((res)=>{console.log(res)})
     .catch((error)=>{console.log(error);})
   }
