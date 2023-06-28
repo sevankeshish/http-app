@@ -3,7 +3,7 @@ import axios from "axios";
 
 import "./FullComment.css";
 
-const FullComment = ({ commentsId }) => {
+const FullComment = ({ commentsId, setComments, setSelectedId }) => {
   const [comment, setComment] = useState(null);
 
   useEffect(() => {
@@ -16,11 +16,23 @@ const FullComment = ({ commentsId }) => {
     }
   }, [commentsId]);
 
-  const deleteHandler = () =>{
-    axios.delete(`http://localhost:3001/comments/${commentsId}`)
-    .then((res)=>{console.log(res)})
-    .catch((error)=>{console.log(error);})
-  }
+  // const deleteHandler = () =>{
+    // axios.delete(`http://localhost:3001/comments/${commentsId}`)
+  //   .then((res)=>{console.log(res)})
+  //   .catch((error)=>{console.log(error);})
+  // }
+
+ const deleteHandler = async ()=>{
+    try{
+      await axios.delete(`http://localhost:3001/comments/${commentsId}`)
+      const {data} = await axios.get("http://localhost:3001/comments")
+      setComments(data)
+      setSelectedId(null)
+      setComment(null)
+    }
+    catch(error){
+    }
+ }
 
   const styles = {
     backgroundColor: " #efefef",

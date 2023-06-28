@@ -18,15 +18,27 @@ const NewComment = (
     console.log(e.target.name, e.target.value);
   }
 
- const postCommentHandler = () =>{
-  axios.post("http://localhost:3001/comments", {
-    ...comment,
-     postId:10,
-    })
-  // .then((res)=>{console.log(res.data);})
-  .then((res) => axios.get("http://localhost:3001/comments"))
-  .then((res) => setComments(res.data))
-  .catch(()=>{})
+//  const postCommentHandler = () =>{
+//   axios.post("http://localhost:3001/comments", {
+//     ...comment,
+//      postId:10,
+//     })
+//   // .then((res)=>{console.log(res.data);})
+//   .then((res) => axios.get("http://localhost:3001/comments"))
+//   .then((res) => setComments(res.data))
+//   .catch(()=>{})
+//  }
+
+const postCommentHandler = async() =>{
+  try{
+      await axios.post("http://localhost:3001/comments", {
+      ...comment,
+       postId:10,
+      })
+     const {data} = await axios.get("http://localhost:3001/comments")
+    setComments(data)
+  }
+  catch(error){}
  }
 
   return (

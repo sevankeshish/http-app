@@ -80,7 +80,7 @@ const Discussion = () => {
         {renderComments()}
       </section>
       <section>
-        <FullComment commentsId={selectedId} />
+        <FullComment commentsId={selectedId} setComments={setComments} setSelectedId={setSelectedId}/>
       </section>
       <section>
         {/* <NewComment addNewComment={postCommentHandler}/> */}
