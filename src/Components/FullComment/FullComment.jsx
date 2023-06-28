@@ -10,7 +10,7 @@ const FullComment = ({ commentsId }) => {
     if (commentsId) {
       axios
         .get(`https://jsonplaceholder.typicode.com/comments/${commentsId}`)
-        // .then((res) => console.log(res.data))
+        // .then((res) =>  console.log(res.data))
         .then((res) => setComment(res.data))
         .catch();
     }
