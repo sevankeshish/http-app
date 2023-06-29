@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { toast} from 'react-toastify';
 
 import Comment from "../../Components/Comment/Comment";
@@ -7,6 +7,8 @@ import FullComment from "../../Components/FullComment/FullComment";
 import NewComment from "../../Components/NewComment/NewComment";
 
 import "./Discussion.css";
+// import http from "../../Services/HttpServices";
+import { GetAllComments } from "../../Services/GetAllComments";
 
 const Discussion = () => {
   const [comments, setComments] = useState(null);
@@ -25,9 +27,7 @@ const Discussion = () => {
     // async function getComments() {
     const getComments = async () => {
       try {
-        const { data } = await axios.get(
-          "http://localhost:3001/comments"
-        );
+        const { data } = await GetAllComments();
         setComments(data);
       } catch (error) {
         //calling error which backend sets
