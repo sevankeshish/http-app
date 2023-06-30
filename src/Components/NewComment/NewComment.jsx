@@ -37,7 +37,9 @@ const postCommentHandler = async() =>{
      const {data} = await GetAllComments()
     setComments(data)
   }
-  catch(error){}
+  catch(error){
+    console.log(error);
+  }
  }
 
   return (
@@ -53,7 +55,7 @@ const postCommentHandler = async() =>{
       </div>
       <div className="formControl">
         <label>body</label>
-        <textarea type="textarea" name="content" onChange={changeHandler} />
+        <textarea type="textarea" name="body" onChange={changeHandler} />
       </div>
       <button onClick={postCommentHandler}>Add New Commenet</button>
     </div>
