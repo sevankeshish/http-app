@@ -30,3 +30,5 @@ axios.interceptors.response.use(
 }
 
 export default http
+
+//npx json-server --watch data/db.json --port 3001

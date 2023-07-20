@@ -79,14 +79,12 @@ const Discussion = () => {
       <section>
         {renderComments()}
       </section>
-      <section>
+      {/* <section>
         <FullComment commentsId={selectedId} setComments={setComments} setSelectedId={setSelectedId}/>
-      </section>
-      <section>
-        {/* <NewComment addNewComment={postCommentHandler}/> */}
+      </section> */}
+      {/* <section>
         <NewComment setComments={setComments}/>
-
-      </section>
+      </section> */}
     </main>
   );
 };
