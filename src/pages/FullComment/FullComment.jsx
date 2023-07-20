@@ -6,8 +6,11 @@ import { GetAllComments } from "../../Services/GetAllComments";
 import { DeleteComments } from "../../Services/DeleteComments";
 import { GetOneComment } from "../../Services/GetOneComment";
 
-const FullComment = ({ commentsId, setComments, setSelectedId }) => {
+const FullComment = ({ setComments, setSelectedId, match }) => {
   const [comment, setComment] = useState(null);
+
+  console.log(match.params.id);
+  const commentsId = match.params.id
 
   useEffect(() => {
     if (commentsId) {
@@ -17,7 +20,7 @@ const FullComment = ({ commentsId, setComments, setSelectedId }) => {
     }
   }, [commentsId]);
 
-  // const deleteHandler = () =>{
+  //  const deleteHandler = () =>{
     // axios.delete(`http://localhost:3001/comments/${commentsId}`)
   //   .then((res)=>{console.log(res)})
   //   .catch((error)=>{console.log(error);})

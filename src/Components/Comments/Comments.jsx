@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 // import axios from "axios";
 import { toast} from 'react-toastify';
 
-import Comment from "../../Components/Comment/Comment";
-import FullComment from "../../Components/FullComment/FullComment";
-import NewComment from "../../Components/NewComment/NewComment";
+import Comment from "./Comment/Comment";
+import FullComment from "../../pages/FullComment/FullComment";
+import NewComment from "../../pages/NewComment/NewComment";
 
-import "./Discussion.css";
+import "./Comments.css";
 // import http from "../../Services/HttpServices";
 import { GetAllComments } from "../../Services/GetAllComments";
+import { Link } from "react-router-dom";
 
-const Discussion = () => {
+const CommentsList = () => {
   const [comments, setComments] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [error, setError] = useState(false)
@@ -38,9 +39,9 @@ const Discussion = () => {
     getComments();
   }, []);
 
-  const selecIdHandler = (id) => {
-    setSelectedId(id);
-  };
+  // const selecIdHandler = (id) => {
+  //   setSelectedId(id);
+  // };
 
   // const postCommentHandler = (comment) =>{
   //   axios.post("http://localhost:3001/comments", {
@@ -63,30 +64,23 @@ const Discussion = () => {
     } 
     if(comments && !error){
       renderValue = comments.map((c) => (
+        <Link to={`/comment/${c.id}`} key={c.id}>
        <Comment
-         key={c.id}
          commentName={c.name}
          commentEmail={c.email}
-         handleClick={() => selecIdHandler(c.id)}
+        //  handleClick={() => selecIdHandler(c.id)}
        />
+        </Link>
      ))
     }
     return renderValue
   }
 
   return (
-    <main>
       <section>
         {renderComments()}
       </section>
-      {/* <section>
-        <FullComment commentsId={selectedId} setComments={setComments} setSelectedId={setSelectedId}/>
-      </section> */}
-      {/* <section>
-        <NewComment setComments={setComments}/>
-      </section> */}
-    </main>
   );
 };
 
-export default Discussion;
+export default CommentsList;

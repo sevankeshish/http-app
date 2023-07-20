@@ -1,7 +1,7 @@
 
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Discussion from "./Container/Discussion/Discussion";
+// import Comments from "./Container/Comments/Comments";
 import "./App.css";
 
 import { Switch, Route } from 'react-router-dom';
@@ -14,7 +14,7 @@ function App() {
       <ToastContainer/>
       <Layout>
         <Switch>
-          {/* <Discussion/> */}
+          {/* <Comments/> */}
           {routes.map((item, index) => (
             <Route {...item} key={index}/>
           ))}
